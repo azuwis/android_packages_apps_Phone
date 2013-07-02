@@ -1285,8 +1285,8 @@ public class CallCard extends LinearLayout
                     displayNameIsNumber = true;
 
                     // ...and use the "number" slot for a geographical description
-                    // string if available (but only for incoming calls.)
-                    if ((conn != null) && (conn.isIncoming())) {
+                    // string if available
+                    if (conn != null) {
                         // TODO (CallerInfoAsyncQuery cleanup): Fix the CallerInfo
                         // query to only do the geoDescription lookup in the first
                         // place for incoming calls.
