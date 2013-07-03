@@ -1310,11 +1310,6 @@ public class CallCard extends LinearLayout
                     displayName = info.name;
                     displayNumber = number;
                     label = info.phoneLabel;
-                    if (label == null) {
-                        label = info.geoDescription;
-                    } else {
-                        label += " " + info.geoDescription;
-                    }
                     if (DBG) log("  ==>  name is present in CallerInfo: displayName '"
                                  + displayName + "', displayNumber '" + displayNumber + "'");
                 }
