@@ -1422,7 +1422,11 @@ public class CallCard extends LinearLayout
         }
 
         // Other text fields:
-        updateCallTypeLabel(call);
+        if (displayNameIsNumber) {
+            updateCallTypeLabel(call, null);
+        } else {
+            updateCallTypeLabel(call, info);
+        }
         // updateSocialStatus(socialStatusText, socialStatusBadge, call);  // Currently unused
     }
 
@@ -1468,7 +1472,7 @@ public class CallCard extends LinearLayout
         mLabel.setVisibility(View.GONE);
 
         // Other text fields:
-        updateCallTypeLabel(call);
+        updateCallTypeLabel(call, null);
         // updateSocialStatus(null, null, null);  // socialStatus is never visible in this state
 
         // TODO: for a GSM conference call, since we do actually know who
@@ -1681,7 +1685,7 @@ public class CallCard extends LinearLayout
      * layer might allow each pluggable "provider" to specify a string
      * and/or icon to be displayed here.)
      */
-    private void updateCallTypeLabel(Call call) {
+    private void updateCallTypeLabel(Call call, CallerInfo info) {
         int phoneType = (call != null) ? call.getPhone().getPhoneType() :
                 PhoneConstants.PHONE_TYPE_NONE;
         if (phoneType == PhoneConstants.PHONE_TYPE_SIP) {
@@ -1695,6 +1699,10 @@ public class CallCard extends LinearLayout
         } else if (call != null && mApplication.notifier.isCallForwarded(call)) {
             mCallTypeLabel.setVisibility(View.VISIBLE);
             mCallTypeLabel.setText(R.string.incall_call_type_label_forwarded);
+            mCallTypeLabel.setTextColor(mTextColorDefault);
+        } else if (info != null && info.geoDescription != null){
+            mCallTypeLabel.setVisibility(View.VISIBLE);
+            mCallTypeLabel.setText(info.geoDescription);
             mCallTypeLabel.setTextColor(mTextColorDefault);
         } else {
             mCallTypeLabel.setVisibility(View.GONE);
